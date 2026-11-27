@@ -7,10 +7,12 @@ class Settings():
 
     # Database
     DATABASE_URL = os.getenv("DATABASE_URL")
+    DB_TIMEOUT_MS = os.getenv("DB_TIMEOUT_MS", 10000)
 
     # LLM
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") 
     LLM_MODEL = os.getenv("LLM_MODEL") 
+    LLM_TIMEOUT_SECONDS = os.getenv("LLM_TIMEOUT_SECONDS", 30)
 
     # Embedding
     EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL") 
@@ -21,11 +23,9 @@ class Settings():
     # Agent
     MAX_TOOL_CALLS = os.getenv("MAX_TOOL_CALLS", 4)
     MAX_MODEL_CALLS = os.getenv("MAX_MODEL_CALLS", 14)
-    LLM_TIMEOUT_SECONDS = os.getenv("LLM_TIMEOUT_SECONDS", 30)
     CONTEXT_CHARS = os.getenv("CONTEXT_CHARS", 9000)
     RERANK_BATCH_SIZE = os.getenv("RERANK_BATCH_SIZE", 2)
     RERANK_MAX_LENGTH = os.getenv("RERANK_MAX_LENGTH", 512)
-    DB_TIMEOUT_MS = os.getenv("DB_TIMEOUT_MS", 10000)
 
     # Langsmith
     LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING", False)
