@@ -1,7 +1,7 @@
 from sqlalchemy import text
 import torch
 
-from app.core.db import db
+from app.core.db import get_db
 from app.core.logger import get_logger
 
 
@@ -14,7 +14,7 @@ def db_preflight() -> bool:
     Return: Boolean"""
     
     try:
-        with db.connect() as transaction:
+        with get_db().connect() as transaction:
             transaction.execute(text("SELECT 1"))
 
         return True
