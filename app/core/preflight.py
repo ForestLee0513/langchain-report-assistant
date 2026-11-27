@@ -1,8 +1,9 @@
-from sqlalchemy import text
 import torch
 from openai import OpenAIError
+from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
 
-from app.core.db import get_db
+from app.db.session import get_session_factory
 from app.core.logger import get_logger
 from app.core.settings import settings
 from app.core.llm import get_llm
@@ -12,17 +13,16 @@ logger = get_logger(__name__)
 
 
 def db_preflight() -> bool:
-    """DB 접속 가능 여부를 확인합니다.
-    
-    Return: Boolean"""
-    
+    """현재 DB 세션 설정으로 연결을 열고 간단한 쿼리를 실행합니다."""
     try:
-        with get_db().connect() as transaction:
-            transaction.execute(text("SELECT 1"))
-
+        with get_session_factory()() as db:
+            db.execute(text("SELECT 1"))
         return True
-    except:
-        logger.exception("DB is not initialized.")
+    except SQLAlchemyError:
+        logger.exception("DB preflight failed")
+        return False
+    except Exception:
+        logger.exception("DB preflight failed unexpectedly")
         return False
 
 
