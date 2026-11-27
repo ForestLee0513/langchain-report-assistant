@@ -1,6 +1,7 @@
 from functools import lru_cache
 
 from openai import OpenAI
+from langchain_openai import ChatOpenAI
 
 from app.core.logger import get_logger
 from app.core.settings import settings
@@ -18,4 +19,18 @@ def get_llm() -> OpenAI:
         )
     except Exception:
         logger.exception("failed to create openai client")
+        raise
+
+
+@lru_cache(maxsize=1)
+def get_chat_model() -> ChatOpenAI:
+    """LangChain 채팅 모델 (agent용)."""
+    try:
+        return ChatOpenAI(
+            model=settings.LLM_MODEL,
+            api_key=settings.OPENAI_API_KEY,
+            timeout=float(settings.LLM_TIMEOUT_SECONDS),
+        )
+    except Exception:
+        logger.exception("failed to create chat model")
         raise
