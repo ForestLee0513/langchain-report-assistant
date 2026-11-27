@@ -207,3 +207,16 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,macos
+
+
+# ===== Prompt data files =====
+# 규칙: app/prompts/<이름>_<날짜>_<버전>.<md|txt>
+# 날짜는 YYYYMMDD 또는 YYYY-MM-DD, 확장자는 대소문자 무관
+
+# 날짜 YYYYMMDD
+app/prompts/*_[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_*.[mM][dD]
+app/prompts/*_[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_*.[tT][xX][tT]
+
+# 날짜 YYYY-MM-DD
+app/prompts/*_[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_*.[mM][dD]
+app/prompts/*_[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_*.[tT][xX][tT]
