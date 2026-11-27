@@ -10,7 +10,8 @@ load_dotenv(BASE_DIR / ".env")
 
 from app.core.settings import settings
 from app.core.runtime import check_health
-from app.core.logger import LoggerManager, get_logger, request_id_ctx
+from app.core.logger import LoggerManager, get_logger
+from app.api.agent import router as agent_router
 
 
 LoggerManager.setup()
@@ -20,6 +21,9 @@ app = FastAPI(
     title=settings.PROJECT_NAME,
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
 )
+
+
+app.include_router(agent_router)
 
 
 @app.get("/health", tags=["Health"])
