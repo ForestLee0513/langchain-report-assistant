@@ -1,7 +1,8 @@
-from app.core.preflight import db_preflight, gpu_preflight
+from app.core.preflight import db_preflight, gpu_preflight, llm_preflight
 
 def check_health() -> dict[str, bool]:
     return {
         "db": db_preflight(),
-        "gpu": gpu_preflight() is not None
+        "gpu": gpu_preflight() is not None,
+        "llm": llm_preflight()
     }
