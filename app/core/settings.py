@@ -35,5 +35,10 @@ class Settings():
     DAY30_REPORT_ID = os.getenv("DAY30_REPORT_ID", 63)
     DAY30_MISSING_ID = os.getenv("DAY30_MISSING_ID", 999999)
 
+    # Logger
+    LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO").upper()
+    LOG_DIR: str = os.getenv("LOG_DIR", "logs")
+    LOG_TO_FILE: bool = os.getenv("LOG_TO_FILE", "false").lower() in {"1", "true", "yes", "on"}
+
 
 settings = Settings()
